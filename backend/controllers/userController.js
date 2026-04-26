@@ -1,15 +1,24 @@
 const db = require('../config/db');
+const bcrypt = require('bcrypt');
 
-exports.register = (req, res) => {
+exports.register = async (req, res) => {
     const { nom, email, password } = req.body;
 
-    const sql = "INSERT INTO users (nom, email, password) VALUES (?, ?, ?)";
+    try {
+        // hash du mot de passe
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-    db.query(sql, [nom, email, password], (err, result) => {
-        if (err) {
-            return res.status(500).json({ message: "Erreur serveur" });
-        }
+        const sql = "INSERT INTO users (nom, email, password) VALUES (?, ?, ?)";
 
-        res.status(201).json({ message: "Utilisateur créé avec succès" });
-    });
+        db.query(sql, [nom, email, hashedPassword], (err, result) => {
+            if (err) {
+                return res.status(500).json({ message: "Erreur serveur" });
+            }
+
+            res.status(201).json({ message: "Utilisateur créé avec succès" });
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: "Erreur hash password" });
+    }
 };
