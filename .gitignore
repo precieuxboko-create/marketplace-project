@@ -1,0 +1,44 @@
+# ========================
+# Dépendances Node.js
+# ========================
+node_modules/
+
+# ========================
+# Variables d'environnement
+# ========================
+# Contient : DB_HOST, DB_PASS, JWT_SECRET, clés API paiement
+.env
+.env.local
+.env.production
+
+# ========================
+# Fichiers uploadés par les utilisateurs
+# (images produits, signatures)
+# ========================
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# ========================
+# Logs
+# ========================
+*.log
+logs/
+npm-debug.log*
+
+# ========================
+# Système d'exploitation
+# ========================
+.DS_Store        # Mac
+Thumbs.db        # Windows
+
+# ========================
+# Éditeurs de code
+# ========================
+.vscode/
+.idea/
+
+# ========================
+# Build / fichiers générés
+# ========================
+dist/
+build/
